@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 export const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -20,8 +20,8 @@ export const ContactForm = ({ onSubmit }) => {
       case 'name':
         setName(value);
         break;
-      case 'phone':
-        setPhone(value);
+      case 'number':
+        setNumber(value);
         break;
       default:
         return;
@@ -30,9 +30,9 @@ export const ContactForm = ({ onSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({ name, phone });
+    onSubmit({ name, number });
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   return (
@@ -55,7 +55,7 @@ export const ContactForm = ({ onSubmit }) => {
           <Label htmlFor="phone">
             <FormLabelName>Number</FormLabelName>
             <Input
-              value={phone}
+              value={number}
               type="tel"
               name="phone"
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

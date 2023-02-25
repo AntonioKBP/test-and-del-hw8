@@ -1,5 +1,6 @@
 export const authInitState = {
-  data: null,
-  isLoading: false,
-  error: null,
+  user: { name: '', email: '' },
+  isLoggedIn: false,
+  token: null,
+  isRefreshing: false,
 };
