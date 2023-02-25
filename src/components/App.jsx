@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+
 // import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix';
 import PropTypes from 'prop-types';
@@ -8,6 +10,8 @@ import {
   getContactsThunk,
   deleteContactsThunk,
 } from 'redux/users/users.thunk';
+
+import { Contacts } from 'pages/Contacts/Contacts';
 
 import {
   // userAddAction,
@@ -21,16 +25,7 @@ import {
   selectFilteredContacts,
 } from 'redux/users/users.selectors';
 
-import { ContactForm } from './ContactForm/ContactForm';
-import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
-
-import {
-  Main,
-  MainTitle,
-  SecondartTitle,
-  LoadingTitle,
-} from './TitleAndMainStyled/TitleAndMainStyled.styled';
+import { Main } from './TitleAndMainStyled/TitleAndMainStyled.styled';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -80,15 +75,14 @@ export const App = () => {
 
   return (
     <Main>
-      <MainTitle>PhoneBook</MainTitle>
-      <ContactForm onSubmit={addUser} />
-
-      <SecondartTitle>Contacts</SecondartTitle>
-      <Filter filterValue={filter} onSearch={handleSearch} />
-      {isLoading && <LoadingTitle>Processing your request...</LoadingTitle>}
-      {contactsLenght > 0 && (
-        <ContactList users={contacts} onDeleteContact={handleDeleteContact} />
-      )}
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />;
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/sign-up" element={<SignUpForm />} />
+          <Route path="/contacts" element={<Contacts />} />
+        </Route>
+      </Routes>
     </Main>
   );
 };
