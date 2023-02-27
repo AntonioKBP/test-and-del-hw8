@@ -17,7 +17,6 @@ export const LoginForm = () => {
 
   const dispatch = useDispatch();
   // const loading = useSelector(selectAuthLoading);
-  const navigate = useNavigate();
 
   const handleChange = e => {
     const { value, name } = e.target;
@@ -27,7 +26,6 @@ export const LoginForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     dispatch(loginThunk(values));
-    navigate('/contacts', { replace: true });
   };
 
   return (
