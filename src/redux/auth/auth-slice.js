@@ -1,9 +1,18 @@
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-
 import { createSlice } from '@reduxjs/toolkit';
 import { authInitState } from './auth.init-state';
-import { authLoginThunk, authLogoutThunk } from './auth.thunk';
+// import {
+//   registrationThunk,
+//   loginThunk,
+//   logoutThunk,
+//   refreshUserThunk,
+// } from 'redux/contacts/contacts.thunk';
+
+import {
+  registrationThunk,
+  loginThunk,
+  logoutThunk,
+  refreshUserThunk,
+} from './auth.thunk';
 
 // axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -14,31 +23,47 @@ const authSlice = createSlice({
   initialState: authInitState,
   extraReducers: builder => {
     builder
-      .addCase(authLoginThunk.pending, state => {
-        state.isLoading = true;
+      .addCase(registrationThunk.pending, state => state)
+      .addCase(registrationThunk.fulfilled, (state, { payload }) => {
+        state.user.name = payload.user.name;
+        state.user.email = payload.user.email;
+        state.token = payload.token;
+        state.isLoggedIn = true;
       })
-      .addCase(authLoginThunk.fulfilled, (state, { payload }) => {
-        state.data = payload;
-        state.isLoading = false;
+      .addCase(registrationThunk.rejected, state => {
+        state.isLoggedIn = false;
       })
-      .addCase(authLoginThunk.rejected, (state, { error }) => {
-        state.isLoading = false;
-        state.error = error.message;
+      .addCase(loginThunk.pending, state => state)
+      .addCase(loginThunk.fulfilled, (state, { payload }) => {
+        state.user.name = payload.user.name;
+        state.user.email = payload.user.email;
+        state.token = payload.token;
+        state.isLoggedIn = true;
       })
-      .addCase(authLogoutThunk.pending, state => {
-        state.isLoading = true;
+      .addCase(loginThunk.rejected, state => {
+        state.isLoggedIn = false;
       })
-      .addCase(authLogoutThunk.fulfilled, state => {
-        state.isLoading = false;
-        state.data = null;
+      .addCase(logoutThunk.pending, state => state)
+      .addCase(logoutThunk.fulfilled, (state, { payload }) => {
+        state.token = null;
+        state.user.name = '';
+        state.user.email = '';
+        state.isLoggedIn = false;
+      })
+      .addCase(logoutThunk.rejected, state => state)
+      .addCase(refreshUserThunk.pending, state => {
+        state.isRefreshing = true;
+      })
+      .addCase(refreshUserThunk.fulfilled, (state, { payload }) => {
+        state.user.name = payload.name;
+        state.user.email = payload.email;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshUserThunk.rejected, state => {
+        state.isRefreshing = false;
       });
   },
 });
 
-const persistConfig = {
-  key: 'auth',
-  storage,
-  whitelist: ['data'],
-};
-
-export const authReducer = persistReducer(persistConfig, authSlice.reducer);
+export const authReducer = authSlice.reducer;

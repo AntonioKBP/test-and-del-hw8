@@ -1,10 +1,13 @@
-// import { createStore } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-// import { devToolsEnhancer } from '@redux-devtools/extension';
-// import { phoneBookReducer } from './users/users.reducer';
-import { initState } from './users/users.init-state';
-import { phoneBookReducer } from './users/users.slice';
+import { contactsInitState } from './contacts/contacts.init-state';
+import { authInitState } from './auth/auth.init-state';
+import { phoneBookReducer } from './contacts/contacts.slice';
+import { authReducer } from './auth/auth-slice';
+import storage from 'redux-persist/lib/storage';
+
 import {
+  persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -13,22 +16,26 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-// import { usersReducer } from './users/users.reducer';
-// import { usersInitState } from './users/users.init-state';
+const persistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
+};
 
-// const enhancer = devToolsEnhancer();
+const initState = {
+  contacts: contactsInitState,
+  auth: authInitState,
+};
 
-// const rootReducer = combineReducers({
-//   contacts: contactsReducer,
-//   filter: filterReducer,
-// });
-
-// export const store = createStore(phoneBookReducer, initState, enhancer);
+const presistedAuthReducer = persistReducer(persistConfig, authReducer);
 
 export const store = configureStore({
   devTools: true,
   preloadedState: initState,
-  reducer: phoneBookReducer,
+  reducer: {
+    contacts: phoneBookReducer,
+    auth: presistedAuthReducer,
+  },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {

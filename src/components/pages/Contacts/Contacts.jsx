@@ -3,7 +3,7 @@ import { Notify } from 'notiflix';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { contactsFilterAction } from 'redux/contacts/contacts.slice';
 
@@ -19,8 +19,8 @@ import { Filter } from 'components/Filter/Filter';
 import { ContactList } from 'components/ContactList/ContactList';
 
 import {
-  addContactsThunk,
-  // getContactsThunk,
+  addContactThunk,
+  getContactsThunk,
   deleteContactsThunk,
 } from 'redux/contacts/contacts.thunk';
 
@@ -30,15 +30,18 @@ import {
   selectFilteredContacts,
 } from 'redux/contacts/contacts.selectors';
 
+import { selectAuthIsLoggedIn } from 'redux/auth/auth-selectors';
+
 export const Contacts = () => {
   const dispatch = useDispatch();
   const filter = useSelector(selectFilterContacts);
   const contacts = useSelector(selectFilteredContacts);
   const isLoading = useSelector(selectIsLoading);
+  const isLoggedIn = useSelector(selectAuthIsLoggedIn);
 
-  // useEffect(() => {
-  //   dispatch(getContactsThunk());
-  // }, [dispatch]);
+  useEffect(() => {
+    isLoggedIn && dispatch(getContactsThunk());
+  }, [isLoggedIn, dispatch]);
 
   const addUser = data => {
     const findExistsName = contacts?.some(
@@ -53,7 +56,7 @@ export const Contacts = () => {
         ...data,
       };
 
-      dispatch(addContactsThunk(newAbonent));
+      dispatch(addContactThunk(newAbonent));
     }
   };
 

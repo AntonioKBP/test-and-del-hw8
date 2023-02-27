@@ -4,10 +4,10 @@ export const selectFilterContacts = state => {
   return state.contacts.filter;
 };
 export const selectContacts = state => {
-  return state.contacts.contacts.items;
+  return state.contacts.items;
 };
 export const selectIsLoading = state => {
-  return state.contacts.contacts.isLoading;
+  return state.contacts.isLoading;
 };
 
 // this selector wil trigger rerendering on every input tap in search input,

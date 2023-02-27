@@ -1,0 +1,42 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  width: 220px;
+  background-color: azure;
+  padding: 10px;
+  border: 1px solid #e3e0e0;
+  border-radius: 4px;
+  margin-top: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.title {
+  font-family: cursive;
+}
+
+.div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+.label {
+  margin-bottom: 5px;
+  font-family: cursive;
+}
+
+.input {
+  padding: 5px;
+  border-radius: 10px;
+  border: #e3e0e0;
+}
+
+.pswBtn {
+  margin-top: 5px;
+  border-radius: 10px;
+  border: aliceblue;
+}

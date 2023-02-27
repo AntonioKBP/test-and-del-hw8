@@ -1,28 +1,35 @@
-import { UserMenu } from 'components/UserMenu/UserMenu';
-import { AuthNav } from 'components/AuthNav/AuthNav';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectAuthLoggedIn, selectAuthName } from 'redux/auth/auth-selectors';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
+import {
+  selectAuthIsLoggedIn,
+  selectAuthName,
+} from 'redux/auth/auth-selectors';
+
+import { Header, HeaderWrapper, NaviLink } from './AppBar.styled';
+
+import { useSelector, useDispatch } from 'react-redux';
+
+import { logoutThunk } from 'redux/auth/auth.thunk';
 
 export const AppBar = () => {
-  const isLoggedIn = useSelector(selectAuthLoggedIn);
+  const isLoggedIn = useSelector(selectAuthIsLoggedIn);
   const name = useSelector(selectAuthName);
   const dispatch = useDispatch();
+
   return (
-    <header>
-      <div className="wrapper">
+    <Header>
+      <HeaderWrapper>
         <nav>
           {isLoggedIn ? (
-            <button onClick={() => dispatch()}>LogOut</button>
+            <button onClick={() => dispatch(logoutThunk())}>LogOut</button>
           ) : (
             <>
-              <NavLink to="/login">Login</NavLink>
-              <NavLink to="/signin">Sign In</NavLink>
+              <NaviLink to="/login">Login</NaviLink>
+              <NaviLink to="/signin">Sign In</NaviLink>
             </>
           )}
         </nav>
         {isLoggedIn && <p>Hello {name}</p>}
-      </div>
-    </header>
+      </HeaderWrapper>
+    </Header>
   );
 };

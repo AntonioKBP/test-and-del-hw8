@@ -1,15 +1,19 @@
-import { Outlet } from 'react-router-dom';
 import { AppBar } from 'components/AppBar/AppBar';
 import { Suspense } from 'react';
-import { RiContrast2Line } from 'react-icons/ri';
+// import { Box } from 'components/Box/Box.styled';
+import { Outlet } from 'react-router-dom';
 
-export const Layout = () => {
+const Layout = () => {
   return (
-    <div>
-      <AppBar />
-      <Suspense fallback={null}>
-        <Outlet />
-      </Suspense>
-    </div>
+    <>
+      <div className="wrapper">
+        <AppBar />
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
+      </div>
+    </>
   );
 };
+
+export default Layout;
