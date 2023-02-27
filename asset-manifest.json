@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/test-and-del-hw8/static/css/main.90280b0d.css",
-    "main.js": "/test-and-del-hw8/static/js/main.40f7958b.js",
+    "main.css": "/test-and-del-hw8/static/css/main.0c0e3fea.css",
+    "main.js": "/test-and-del-hw8/static/js/main.07e283eb.js",
     "index.html": "/test-and-del-hw8/index.html",
-    "main.90280b0d.css.map": "/test-and-del-hw8/static/css/main.90280b0d.css.map",
-    "main.40f7958b.js.map": "/test-and-del-hw8/static/js/main.40f7958b.js.map"
+    "main.0c0e3fea.css.map": "/test-and-del-hw8/static/css/main.0c0e3fea.css.map",
+    "main.07e283eb.js.map": "/test-and-del-hw8/static/js/main.07e283eb.js.map"
   },
   "entrypoints": [
-    "static/css/main.90280b0d.css",
-    "static/js/main.40f7958b.js"
+    "static/css/main.0c0e3fea.css",
+    "static/js/main.07e283eb.js"
   ]
 }
